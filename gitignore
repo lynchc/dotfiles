@@ -1,0 +1,38 @@
+# Ignore temp files
+*~
+*.~
+*.a
+.DS_Store
+.DS_STORE
+.*.swp
+*.swp
+
+# ignore build/temp dirs
+build/*
+tmp/*
+
+# ignore caches, bundles, gen
+.bundle
+.cache/*
+gen/
+*.o
+*.out
+
+# ignore log filee,
+*.log
+log/*
+
+# ignore databases
+db/*.sqlite3
+
+# ignore lock files
+*.lock
+.lockScript
+.lock-wscript
+# minue gemfile
+!Gemfile.lock
+
+# for node.js
+.node_modules
+node_modules/*
+*.xcodeproj

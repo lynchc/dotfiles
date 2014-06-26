@@ -1,0 +1,21 @@
+[ui]
+username = Jameson <jameson@chatid.com>
+ssh = ssh -C
+
+[extensions]
+color=
+pager=
+purge=
+mq=
+record=
+progress=
+rebase=
+schemes=
+hgext.bookmarks =
+hggit =
+
+[pager]
+pager = less
+
+[schemes]
+chatid=ssh://hg@code.chatid.com/

@@ -1,0 +1,8 @@
+startup_message off
+autodetach on
+shell -$SHELL
+vbell off
+defutf8 on
+caption always
+caption string "%{= wk}%w"
+termcapinfo xterm-color|xterm|xterms|xs|rxvt ti@:te@ 
