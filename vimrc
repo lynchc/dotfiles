@@ -29,6 +29,8 @@ Bundle 'scrooloose/syntastic'
 
 " color stuff
 Bundle 'altercation/vim-colors-solarized'
+" Go lang
+Plugin 'fatih/vim-go'
 
 "####################### end Vundles ##########################
 
@@ -107,7 +109,7 @@ set laststatus=2                  " Show the status line all the time
 "set lbr                            " smart word breaking
 "set tw=80                        " line width
 
-set si              " smart indenting
+"set si              " smart indenting
 set wrap
 
 set list
@@ -122,12 +124,12 @@ set clipboard=unnamed
 "colorscheme elflord
 " set iterm2 solarized to xterm-256color
 set background=dark
-let g:solarized_contrast="high"
+let g:solarized_contrast="normal"
 let g:solarized_visibility="high"
 colorscheme solarized
 
 " folding
-set foldmethod=indent
+" set foldmethod=indent
 
 " Enable mouse support
 set mouse=a
@@ -173,7 +175,7 @@ map <A-down> :tabe<CR>
 "For NERDTree
 map <F4> :NERDTreeToggle<CR>
 let NERDTreeIgnore=['\.vim$', '\~$', '\.pyc$', '\.swp$']
-let NERDTreeWinSize=20
+let NERDTreeWinSize=30
 
 "For TagBar
 map <F5> :TagbarToggle<CR>
@@ -185,7 +187,8 @@ set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.tar,*.tar.*
 let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
 
 "For autocmd
-autocmd VimEnter * NERDTree " start nerd tree
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 
 "For vimshell
 map <C-w>s :source ~/.vim/bundle/vimsh/vimsh.vim<CR>
@@ -195,5 +198,12 @@ nnoremap <C-f> :noautocmd :execute "vimgrep /" . expand("<cword>") . "/j **" <Ba
 nnoremap <Leader>k :cn<CR>
 nnoremap <Leader>j :cp<CR>
 
+" Go Settings
+let g:go_bin_path = "/home/fatih/.mypath" 
+let g:go_highlight_functions = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_structs = 1
+
 " Paste Toggle
 set pastetoggle=<F2>
+highlight Normal  ctermbg=black
