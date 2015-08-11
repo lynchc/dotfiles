@@ -124,7 +124,8 @@ set clipboard=unnamed
 "colorscheme elflord
 " set iterm2 solarized to xterm-256color
 set background=dark
-let g:solarized_contrast="normal"
+let g:solarized_termcolors=256
+let g:solarized_contrast="high"
 let g:solarized_visibility="high"
 colorscheme solarized
 
