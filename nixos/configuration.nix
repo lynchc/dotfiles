@@ -13,23 +13,8 @@
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-  boot.loader.efi.efiSysMountPoint = "/boot/efi";
 
-  # Setup keyfile
-  boot.initrd.secrets = {
-    "/crypto_keyfile.bin" = null;
-  };
-
-  # Enable swap on luks
-  boot.initrd.luks.devices."luks-ef6d51cd-5289-4817-bebc-c0226e09421c".device = "/dev/disk/by-uuid/ef6d51cd-5289-4817-bebc-c0226e09421c";
-  boot.initrd.luks.devices."luks-ef6d51cd-5289-4817-bebc-c0226e09421c".keyFile = "/crypto_keyfile.bin";
-
-  boot.extraModprobeConfig = ''
-    options snd slots=snd-hda-intel
-    options snd_hda_intel enable=0,1
-  '';
-
-  networking.hostName = "mini-nixos"; # Define your hostname.
+  networking.hostName = "rbx-nixos"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   # Configure network proxy if necessary
@@ -64,15 +49,22 @@
   };
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.lynchc = {
+  users.users.lynch = {
     isNormalUser = true;
-    description = "lynchc";
-    extraGroups = [ "networkmanager" "wheel" ];
-    packages = with pkgs; [];
+    description = "lynch";
+    extraGroups = [ "networkmanager" "wheel" "docker" ];
+    packages = with pkgs; [
+      pkgs.nodePackages.cdktf-cli
+      pkgs.nodePackages.npm
+      nodejs_18
+      awscli2
+      x11docker
+      tenv
+      screen
+      helix
+      gh
+    ];
   };
-
-  sound.enable = true;
-  hardware.pulseaudio.enable = true;
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
@@ -83,7 +75,7 @@
     vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     vimPlugins.Vundle-vim
     wget
-    _1password-gui
+  _1password-gui
     arandr
     aws-vault
     alsa-utils
@@ -93,6 +85,7 @@
     blueman
     caffeine-ng
     chromium
+    delta
     dialog
     docker
     dunst
@@ -100,8 +93,8 @@
     flameshot
     foliate
     galculator
-    globalprotect-openconnect
-    gnome.gnome-keyring
+    #globalprotect-openconnect
+    #gnome.gnome-keyring
     gnumake
     google-cloud-sdk
     google-chrome
@@ -116,14 +109,17 @@
     keepass
     keybase
     keybase-gui
+    kitty
+    less
     libinput
     libreoffice
+    lm_sensors
     lsof
     nettools
     netcat-gnu
     nmap
     matterhorn
-    minecraft
+    mandoc
     onionshare
     onionshare-gui
     pango
@@ -132,7 +128,9 @@
     profont
     qemu
     quasselClient
+    ripgrep
     samba
+    screen
     scrub
     gnome.seahorse
     signal-desktop
@@ -148,12 +146,12 @@
     terragrunt
     tintin
     tor
-    tor-browser-bundle-bin
+  tor-browser-bundle-bin
     traceroute
     ubuntu_font_family
     unetbootin
+    unzip
     usbutils
-    warp-terminal
     waydroid
     weston
     wireguard-tools
@@ -168,12 +166,13 @@
 
     #dev tools
     android-tools
-    bazel
-    dep
+    #dep
     git
     gcc
     jsonnet
     mercurial
+    pkgs.vscode-extensions.vadimcn.vscode-lldb
+    python3
     rustup
     vagrant
     virtualbox
@@ -190,6 +189,7 @@
     yubikey-manager
   ];
   services.pcscd.enable = true;
+  services.ntp.enable = true;
 
   # Enable ZRAM
   zramSwap = {
@@ -223,6 +223,7 @@
   # networking.firewall.allowedTCPPorts = [ ... ];
   # networking.firewall.allowedUDPPorts = [ ... ];
   # Or disable the firewall altogether.
+  # networking.firewall.enable = false;
   networking.firewall.enable = false;
   networking.enableIPv6 = false;
 
@@ -261,4 +262,30 @@
   systemd.targets.hybrid-sleep.enable = false;
   powerManagement.enable = false;
   services.logind.lidSwitch = "ignore";
+
+  virtualisation.docker.enable = true;
+  virtualisation.docker.rootless = {
+    enable = true;
+    setSocketVariable = true;
+  };
+
+  services.globalprotect.enable = true;
+
+  services.gnome.gnome-keyring.enable = true;
+  programs.seahorse.enable = true; # enable the graphical frontend
+  programs.dconf.enable = true;
+  # programs = { seahorse.enable = true; dconf. }
+  #services.gnome-keyring = {
+  #  enable = true;
+  #  components = [ "secrets" ];
+  #};
+
+  # This value determines the NixOS release from which the default
+  # settings for stateful data, like file locations and database versions
+  # on your system were taken. It‘s perfectly fine and recommended to leave
+  # this value at the release version of the first install of this system.
+  # Before changing this value read the documentation for this option
+  # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
+  #system.stateVersion = "24.05"; # Did you read the comment?
+
 }
