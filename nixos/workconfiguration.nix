@@ -83,8 +83,10 @@
     bluez
     bluez-tools
     blueman
+    bpftools
     caffeine-ng
     chromium
+    cilium-cli
     delta
     dialog
     docker
@@ -102,14 +104,20 @@
     htop
     home-manager
     hub
+    hubble
     i3
     i3status
     iftop
     jq
+    k9s
     keepass
     keybase
     keybase-gui
+    kind
     kitty
+    kubectl
+    kubernetes
+    kubernetes-helm
     less
     libinput
     libreoffice
@@ -117,6 +125,7 @@
     lsof
     nettools
     netcat-gnu
+    nh
     nmap
     matterhorn
     man-db
@@ -165,6 +174,7 @@
     yubikey-manager-qt
     yubioath-flutter
     zoom-us
+    nixos-generators
 
     #dev tools
     android-tools
