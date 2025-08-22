@@ -1,0 +1,167 @@
+{
+  # don't use nix-darwin. it's been a disaster
+  description = "flake to install pkgs in either darwin or linux through nix profile only";
+
+  inputs = {
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
+    nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
+  };
+
+  outputs = inputs: let
+    # Define some variables to make handling platform specifics easier.
+    linux = {
+      displayName = "linux";
+      architecture = "x86_64-linux";
+    };
+    mac = {
+      displayName = "mac";
+      architecture = "aarch64-darwin";
+    };
+
+    # Helper function. Call it with one of the above objects.
+    # It will call the system specific`buildEnv` function with a name
+    # reflecting the profile being built and system specific packages.
+    buildPackage = {
+      displayName,
+      architecture,
+    } @ platform: let
+      pkgs = inputs.nixpkgs.legacyPackages.${architecture};
+      unstablePkgs = inputs.nixpkgs-unstable.legacyPackages.${architecture};
+    in {
+      default = pkgs.buildEnv {
+        name = "dotfile-nix-profile-" + displayName;
+        paths = with pkgs;
+          [
+            arandr
+            awscli2
+            aws-vault
+            cilium-cli
+            delta
+            dialog # tui dialogs
+            flameshot
+            gh
+            #ghostty
+            gnumake
+            google-cloud-sdk
+            #globalprotect-openconnect
+            #gpclient
+            htop
+            hub
+            hubble
+            iftop
+            jq
+            keybase
+            k9s
+            kitty
+            kubectl
+            kubernetes
+            kubernetes-helm
+            less
+            lsof
+            nettools
+            netcat-gnu
+            nh
+            nmap
+            profont
+            qemu
+            #quasselClient
+            screen
+            scrub
+            speedtest-cli
+            sqlite
+            sqlite-analyzer
+            sysdig
+            tcpdump
+            termite
+            terminus_font
+            terragrunt
+            tintin
+            tor
+            ubuntu_font_family
+            unzip
+            usbutils
+            wireguard-tools
+            wl-clipboard
+            yubikey-personalization
+            yubico-piv-tool
+            
+
+            android-tools
+            bazel
+            docker
+            git
+            gcc
+            helix
+            jsonnet
+            pkgs.vscode-extensions.vadimcn.vscode-lldb
+            python3
+            rustup
+            vim
+            vimPlugins.Vundle-vim
+            vscodium
+            wget
+            wipe
+            yamllint
+            nodejs_22
+            #pkgs.nodePackages.cdktf-cli
+            pkgs.nodePackages.npm
+
+            stow # ln farm
+            wezterm
+            tmux
+            starship #shell prompt
+            (unstablePkgs.neovim)
+            fzf # fuzzy finder
+            lazygit
+            ripgrep
+            fd
+            yazi # tui file manager in rs
+            jq
+            nodejs_22
+            typescript
+            nodePackages.nodemon
+            vscode-langservers-extracted
+            nodePackages.typescript-language-server
+            nodePackages.eslint
+            prettierd
+            lua-language-server
+            stylua
+            nixd # nix lang server
+            alejandra #nix formatter
+            zig
+          ]
+          ++ (
+            # NOTE there is pkgs.stdenv.isDarwin
+            if platform == mac
+            then
+              # MAC SPECIFIC
+              [aerospace]
+            else []
+          )
+          ++ (
+            # NOTE there is pkgs.stdenv.isLinux
+            if platform == linux
+            then
+              # LINUX SPECIFIC
+              [
+                bpftools
+                keybase-gui
+                numactl
+                pcmanfm
+                strace
+                traceroute
+                vagrant
+                yubikey-personalization-gui
+                yubioath-flutter
+              ]
+            else []
+          );
+      };
+    };
+  in {
+    packages = {
+      ${linux.architecture} = buildPackage linux;
+      ${mac.architecture} = buildPackage mac;
+    };
+  };
+}
