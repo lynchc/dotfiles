@@ -62,6 +62,7 @@
             netcat-gnu
             nh
             nmap
+            oh-my-zsh
             profont
             qemu
             #quasselClient
