@@ -5,6 +5,7 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
+    #nixpkgs-k8s.url = "github:NixOS/nixpkgs/1c1c9b3f5ec0421eaa0f22746295466ee6a8d48f"; # 1.30
   };
 
   outputs = inputs: let
@@ -26,6 +27,7 @@
       architecture,
     } @ platform: let
       pkgs = inputs.nixpkgs.legacyPackages.${architecture};
+      #pkgs-k8s = inputs.nixpkgs-k8s.legacyPackages.${architecture};
       unstablePkgs = inputs.nixpkgs-unstable.legacyPackages.${architecture};
     in {
       default = pkgs.buildEnv {
@@ -38,6 +40,7 @@
             cilium-cli
             delta
             dialog # tui dialogs
+            direnv
             flameshot
             gh
             #ghostty
@@ -54,7 +57,6 @@
             k9s
             kitty
             kubectl
-            kubernetes
             kubernetes-helm
             less
             lsof
@@ -147,6 +149,7 @@
               [
                 bpftools
                 keybase-gui
+                kubernetes
                 numactl
                 pcmanfm
                 strace
