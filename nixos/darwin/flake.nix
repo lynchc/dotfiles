@@ -81,13 +81,13 @@
             tintin
             tor
             ubuntu_font_family
+            unixtools.watch
             unzip
             usbutils
             wireguard-tools
             wl-clipboard
             yubikey-personalization
             yubico-piv-tool
-            
 
             android-tools
             bazel
@@ -108,6 +108,9 @@
             nodejs_22
             #pkgs.nodePackages.cdktf-cli
             pkgs.nodePackages.npm
+            consul
+            vault
+            nomad
 
             stow # ln farm
             wezterm
