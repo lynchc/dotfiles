@@ -102,6 +102,7 @@
             vim
             vimPlugins.Vundle-vim
             vscodium
+            vscode
             wget
             wipe
             yamllint
