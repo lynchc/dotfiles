@@ -5,12 +5,12 @@ stdenv.mkDerivation {
   dontBuild = true;
   installPhase = ''
     mkdir -p $out/share/sddm/themes
-    cp -aR $src $out/share/sddm/themes/my-theme
+    cp -aR $src/sddm/Bitpunk/ $out/share/sddm/themes/my-theme
   '';
   src = fetchFromGitHub {
-    owner = "Keyitdev";
-    repo = "sddm-astronaut-theme";
-    rev = "48ea0a792711ac0c58cc74f7a03e2e7ba3dc2ac0";
-    sha256 = "kXovz813BS+Mtbk6+nNNdnluwp/7V2e3KJLuIfiWRD0=";
+    owner = "bitr8";
+    repo = "bitpunk-theme";
+    rev = "fd3a3b56be2ec555b664b3dbbe5bc2e6b7d96eeb";
+    sha256 = "Yh49G8f3s6iwWMTK1llpqJXJ9rW0bdmI1aWCl/WLd+0=";
   };
 }

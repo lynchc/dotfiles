@@ -46,11 +46,11 @@
   };
 
   nixpkgs.config.allowUnfree = true;
-
+  time.timeZone = "America/Los_Angeles";
   boot = {
     kernelPackages = pkgs.linuxPackages_latest;
-    boot.supportedFilesystems = [ "ntfs" ];
-    
+    supportedFilesystems = [ "ntfs" ];
+
     loader = {
       systemd-boot.enable = true;
       efi.canTouchEfiVariables = true;
@@ -111,7 +111,7 @@
       exportConfiguration = true;
     };
 
-    desktopManager.plasma6.enable = true;
+#    desktopManager.plasma6.enable = true;
 
     displayManager.sddm = {
       enable = true;
@@ -167,19 +167,19 @@
     };
     avahi = {
       enable = true;
-      nssmdns = true;
+      nssmdns4 = true;
       openFirewall = true;
     };
 
     keybase.enable = true;
     kbfs.enable = true;
-    globalprotect.enable = true;
+#    globalprotect.enable = true;
     fwupd.enable = true;
     blueman.enable = true;
     upower = {
       enable = true;
       criticalPowerAction = "Hibernate";
-      ignoreLid = true;
+      ignoreLid = false;
     };
     power-profiles-daemon.enable = true;
     fprintd.enable = true;
@@ -189,17 +189,20 @@
     libinput.touchpad.tapping = false;
     tumbler.enable = true;
     logind = {
-      lidSwitch = "ignore";
-      lidSwitchDocked = "ignore";
-      powerKey = "ignore";
-      powerKeyLongPress = "poweroff";
+       settings = {
+          Login = {
+            #lidSwitch = "lock";
+            #lidSwitchDocked = "lock";
+            HandlePowerKey = "ignore";
+            HandlePowerKeyLongPress = "poweroff";
+          };
+       };
     };
     pcscd.enable = true;
     ntp.enable = true;
     thermald.enable = true;
-    auto-cpufreq.enable = true;
-    automatic-timezoned.enable = true;
-    flatpak.enable = true;
+    #auto-cpufreq.enable = true;
+    #flatpak.enable = true;
   };
 
   systemd.sleep.extraConfig = "HibernateDelaySec=2h";
@@ -255,7 +258,7 @@
       gnupg
       killall
       vim
-      polkit-kde-agent
+      #polkit-kde-agent
       python3
       qemu
       quickemu
@@ -323,14 +326,14 @@
 
   # OpenCL / Vulkan
   hardware = {
-    opengl = {
+    graphics = {
       enable = true;
       extraPackages = [
-        pkgs.rocm-opencl-icd
-        pkgs.amdvlk
+        #it's called radv now and it's enabled by default
+        #pkgs.amdvlk
       ];
-      driSupport = true;
-      driSupport32Bit = true;
+      #driSupport = true;
+      #driSupport32Bit = true;
     };
     bluetooth = {
       enable = true;
@@ -339,5 +342,5 @@
   };
 
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
-  system.stateVersion = "23.11";
+  system.stateVersion = "25.11";
 }

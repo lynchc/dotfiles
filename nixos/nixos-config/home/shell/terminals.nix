@@ -1,7 +1,7 @@
 {
   programs.kitty = {
     enable = true;
-    theme = "Gruvbox Dark";
+    #theme = "spaceduck";
     settings = {
       font_family = "Cascadia Code";
       font_size = "10.8";
@@ -13,51 +13,27 @@
       adjust_column_width = 0;
       placement_strategy = "top-left";
 
-      cursor_blink_interval = 0;
-      cursor = "#928374";
-      cursor_text_color = "background";
-
-      url_color = "#83a598";
-
-      visual_bell_color = "#8ec07c";
-      bell_border_color = "#8ec07c";
-
-      active_border_color = "#d3869b";
-      inactive_border_color = "#665c54";
-
-      foreground = "#ebdbb2";
-      background = "#1d2021";
-      selection_foreground = "#928374";
-      selection_background = "#ebdbb2";
-
-      active_tab_foreground = "#fbf1c7";
-      active_tab_background = "#665c54";
-      inactive_tab_foreground = "#a89984";
-      inactive_tab_background = "#3c3836";
-
-      color0 = "#665c54"; # black (bg3/bg4)
-      color8 = "#7c6f64";
-
-      color1 = "#cc241d"; # red
-      color9 = "#fb4934";
-
-      color2 = "#98971a"; # green
-      color10 = "#b8bb26";
-
-      color3 = "#d79921"; # yellow
-      color11 = "#fabd2f";
-
-      color4 = "#458588"; # blue
-      color12 = "#83a598";
-
-      color5 = "#b16286"; # purple
-      color13 = "#d3869b";
-
-      color6 = "#689d6a"; # aqua
-      color14 = "#8ec07c";
-
-      color7 = "#a89984"; # white (fg4/fg3)
-      color15 = "#bdae93";
+      background =           "#000000";
+      foreground =           "#e9e9e9";
+      cursor =               "#e9e9e9";
+      selection_background = "#424242";
+      color0 =               "#000000";
+      color8 =               "#000000";
+      color1 =               "#d44d53";
+      color9 =               "#d44d53";
+      color2 =               "#b9c949";
+      color10 =              "#b9c949";
+      color3 =               "#e6c446";
+      color11 =              "#e6c446";
+      color4 =               "#79a6da";
+      color12 =              "#79a6da";
+      color5 =               "#c396d7";
+      color13 =              "#c396d7";
+      color6 =               "#70c0b1";
+      color14 =              "#70c0b1";
+      color7 =               "#fffefe";
+      color15 =              "#fffefe";
+      selection_foreground = "#000000";
     };
     keybindings = {
       "kitty_mod+RIGHT_BRACKET" = "change_font_size all +0.1";

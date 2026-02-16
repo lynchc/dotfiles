@@ -3,7 +3,7 @@
 {
   imports = [ ./lazygit.nix ];
 
-  programs.git = {
+  programs.git.settings = {
     enable = true;
     userName = "lynchc";
     userEmail = "${vars.email}";

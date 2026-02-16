@@ -28,7 +28,7 @@
     username = "${vars.user}";
     homeDirectory = "/home/${vars.user}";
     packages = with pkgs; [
-      (callPackage ../derivations/dbvisualizer.nix { })
+      #(callPackage ../derivations/dbvisualizer.nix { })
       #mine
       vim
       vimPlugins.Vundle-vim
@@ -36,7 +36,6 @@
       arandr
       aws-vault
       alsa-utils
-      bitwarden
       blueman
       bluez
       bluez-tools
@@ -49,16 +48,18 @@
       docker
       dunst
       feh
-      firefox-bin
       flameshot
       foliate
+      freecad
+      kicad
+      ghostty
+      qastools
+      high-tide
       galculator
-      globalprotect-openconnect
-      gnome.gnome-keyring
+      gnome-keyring
       gnumake
       google-cloud-sdk
       google-chrome
-      gqview
       htop
       i3
       i3status
@@ -73,25 +74,24 @@
       libreoffice
       lm_sensors
       lsof
+      neovim
       nettools
       netcat-gnu
       networkmanagerapplet
       nmap
-      matterhorn
-      mandoc
-      onionshare
+      #matterhorn
       onionshare-gui
+      orca-slicer
       pango
       pcmanfm
       prismlauncher
-      profont
       qemu
       quasselClient
       ripgrep
       samba
       screen
       scrub
-      gnome.seahorse
+      seahorse
       signal-desktop
       slack
       speedtest-cli
@@ -105,9 +105,9 @@
       terragrunt
       tintin
       tor
-      tor-browser-bundle-bin
+      tor-browser
       traceroute
-      ubuntu_font_family
+      ubuntu-classic
       unetbootin
       unzip
       usbutils
@@ -120,10 +120,8 @@
       xorg.xcalc
       xorg.xbacklight
       yubikey-personalization
-      yubikey-personalization-gui
       yubico-piv-tool
       yubikey-manager
-      yubikey-manager-qt
       yubioath-flutter
       zoom-us
 
@@ -141,6 +139,7 @@
       vagrant
       vscodium-fhs
       wipe
+      wdisplays
       wireshark
       xterm
       yamllint
@@ -177,19 +176,16 @@
       mullvad-vpn
       ncdu
       neovide
-      netcat-openbsd
       ngrok
       nix-your-shell
       ollama
       pavucontrol
-      pgadmin
+      pgadmin4
       playerctl
       powertop
-      qt5.full
       ripgrep
       slack
       slurp
-      spotify
       swappy
       swaylock-effects
       telegram-desktop
@@ -199,18 +195,17 @@
       wl-clipboard
       xdotool
       zathura
-      #zed-editor
       zoom-us
 
       # fonts
       cascadia-code
       dejavu_fonts
       fira-code
-      jetbrains-mono
+      nerd-fonts.jetbrains-mono
       material-design-icons
       material-icons
       material-symbols
-      nerdfonts
+      nerd-fonts.ubuntu
       powerline-fonts
       sarasa-gothic
       siji
@@ -227,5 +222,5 @@
   systemd.user.startServices = "sd-switch";
 
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
-  home.stateVersion = "23.11";
+  home.stateVersion = "25.11";
 }
