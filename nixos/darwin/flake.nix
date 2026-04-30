@@ -52,6 +52,7 @@
             hub
             hubble
             iftop
+            inetutils
             jq
             keybase
             k9s
