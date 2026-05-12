@@ -3,7 +3,7 @@
   description = "flake to install pkgs in either darwin or linux through nix profile only";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     #nixpkgs-k8s.url = "github:NixOS/nixpkgs/1c1c9b3f5ec0421eaa0f22746295466ee6a8d48f"; # 1.30
   };
@@ -58,6 +58,7 @@
             k9s
             kitty
             kubectl
+            kubelogin-oidc
             kubernetes-helm
             less
             lsof
@@ -81,12 +82,12 @@
             terragrunt
             tintin
             tor
-            ubuntu_font_family
+            ubuntu-classic
             unixtools.watch
             unzip
             usbutils
             wireguard-tools
-            wl-clipboard
+            #wl-clipboard
             yubikey-personalization
             yubico-piv-tool
 
@@ -107,9 +108,10 @@
             wget
             wipe
             yamllint
-            nodejs_22
+            zed-editor
+            #nodejs_22
             #pkgs.nodePackages.cdktf-cli
-            pkgs.nodePackages.npm
+            #pkgs.nodePackages.npm
             consul
             vault
             nomad
@@ -125,12 +127,12 @@
             fd
             yazi # tui file manager in rs
             jq
-            nodejs_22
+            #nodejs_22
             typescript
-            nodePackages.nodemon
+            #nodePackages.nodemon
             vscode-langservers-extracted
-            nodePackages.typescript-language-server
-            nodePackages.eslint
+            #nodePackages.typescript-language-server
+            #nodePackages.eslint
             prettierd
             lua-language-server
             stylua
@@ -153,6 +155,7 @@
               # LINUX SPECIFIC
               [
                 bpftools
+                freelens-bin
                 keybase-gui
                 kubernetes
                 numactl
