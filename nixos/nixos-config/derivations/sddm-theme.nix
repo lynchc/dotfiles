@@ -5,7 +5,7 @@ stdenv.mkDerivation {
   dontBuild = true;
   installPhase = ''
     mkdir -p $out/share/sddm/themes
-    cp -aR $src/sddm/Bitpunk/ $out/share/sddm/themes/my-theme
+    cp -aR $src/sddm/Bitpunk $out/share/sddm/themes/my-theme
   '';
   src = fetchFromGitHub {
     owner = "bitr8";

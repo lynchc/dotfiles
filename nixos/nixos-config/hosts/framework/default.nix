@@ -52,6 +52,7 @@
     supportedFilesystems = [ "ntfs" ];
 
     loader = {
+      timeout = 0;
       systemd-boot.enable = true;
       efi.canTouchEfiVariables = true;
     };
@@ -60,15 +61,44 @@
     extraModulePackages = with config.boot.kernelPackages; [ zenpower ];
 
     kernelParams = [
-      "quiet"
-      "splash"
-      "btusb.enable_autosuspend=0"
-      "usbcore.autosuspend=-1"
       "nvme.noacpi=1"
       "amd_pstate=active"
       "mem_sleep_default=s2idle"
-      "amdgpu.sg_display=0"
-      "amdgpu.abmlevel=3"
+
+      "pci=realloc"
+      #"amdgpu.noretry=1"         # Stops system freezes during an accidental cable disconnect
+      #"amdgpu.dcdebugmask=0x10"   # Forces the driver's display core to skip blocking mailbox syncs
+
+
+      "pcie_port_pm=off"          # Completely disables PCIe port power management at boot
+      #"amdgpu.dpm=0"              # Disables Dynamic Power Management inside the amdgpu loop
+
+      # Keep your other safe eGPU layers
+      #"pcie_aspm=off"
+      #"amdgpu.modeset=1"         # Forces proper kernel mode-setting drivers to handle allocations
+      "amdgpu.noretry=1"
+      #"thunderbolt.host_reset=1"
+      #"amdgpu.modeset=1"         # Forces proper kernel mode-setting drivers to handle allocations
+      # Fix for the 'ACK should not assert' driver loop
+      #"amdgpu.dcdebugmask=0x10"   # Forces the driver's display core to skip blocking mailbox syncs
+      #"amd_iommu=off"             # Prevents IOMMU mapping race loops with the eGPU during early boot
+      #"quiet"
+      #"splash"
+      #"btusb.enable_autosuspend=0"
+      #"usbcore.autosuspend=-1"
+      #"nvme.noacpi=1"
+      #"pcie_aspm=off"
+      #"pci=nocrs"
+      #"amdgpu.noretry=1"
+      #"thunderbolt.host_reset=1"
+
+      #"amd_pstate=active"
+      #"mem_sleep_default=s2idle"
+      #"pcie_aspm=off"          # Disables aggressive PCIe Link State Power Management
+      #"pci=nocrs"              # Ignores ACPI cluster allocations if they conflict
+      #"thunderbolt.host_reset=1" # Forces clean host initialization
+      #"amdgpu.sg_display=0"
+      #"amdgpu.abmlevel=3"
     ];
     blacklistedKernelModules = [ "hid_logitech_hidpp" ];
   };
@@ -109,8 +139,10 @@
       #autoRepeatDelay = 250;
       #autoRepeatInterval = 30;
       exportConfiguration = true;
+      #videoDrivers = [ "amdgpu" ];
     };
 
+    hardware.bolt.enable = true;
 #    desktopManager.plasma6.enable = true;
 
     displayManager.sddm = {
@@ -205,7 +237,7 @@
     #flatpak.enable = true;
   };
 
-  systemd.sleep.extraConfig = "HibernateDelaySec=2h";
+  #systemd.sleep.extraConfig = "HibernateDelaySec=2h";
   systemd = {
     user.services.polkit-gnome-authentication-agent-1 = {
       description = "polkit-gnome-authentication-agent-1";
@@ -259,6 +291,7 @@
       killall
       vim
       #polkit-kde-agent
+      pciutils
       python3
       qemu
       quickemu
@@ -310,11 +343,11 @@
       ];
     };
 
-    #steam = {
-      #enable = true;
+    steam = {
+      enable = true;
       #remotePlay.openFirewall = true;
       #dedicatedServer.openFirewall = true;
-    #};
+    };
 
     gnupg.agent = {
       enable = true;

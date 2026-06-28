@@ -79,7 +79,9 @@
       netcat-gnu
       networkmanagerapplet
       nmap
+      nvtopPackages.amd
       #matterhorn
+      ollama
       onionshare-gui
       orca-slicer
       pango
@@ -100,7 +102,6 @@
       strace
       sysdig
       tcpdump
-      termite
       terminus_font
       terragrunt
       tintin
@@ -114,8 +115,8 @@
       waydroid
       weston
       wireguard-tools
+      wlr-randr
       xbindkeys
-      xbindkeys-config
       xorg.xinput
       xorg.xcalc
       xorg.xbacklight
