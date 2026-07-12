@@ -48,7 +48,8 @@
   nixpkgs.config.allowUnfree = true;
   time.timeZone = "America/Los_Angeles";
   boot = {
-    kernelPackages = pkgs.linuxPackages_latest;
+    #kernelPackages = pkgs.linuxPackages_latest;
+    kernelPackages = pkgs.linuxPackages;
     supportedFilesystems = [ "ntfs" ];
 
     loader = {
@@ -66,17 +67,26 @@
       "mem_sleep_default=s2idle"
 
       "pci=realloc"
+      # Instructs the system to handle PCIe structures natively rather than passing them through BIOS handlers
+      "pcie_ports=native"
+
+      # Prevents data fabric sync flood issues between the AMD SoC and the ASM2464 controller
+      "pcie_ecrc=on"
+
+      # Disables strict IOMMU isolation mapping constraints that hide the Radeon GPU from lspci
+      "iommu=pt"
       #"amdgpu.noretry=1"         # Stops system freezes during an accidental cable disconnect
       #"amdgpu.dcdebugmask=0x10"   # Forces the driver's display core to skip blocking mailbox syncs
 
 
-      "pcie_port_pm=off"          # Completely disables PCIe port power management at boot
+      #"pcie_port_pm=off"          # Completely disables PCIe port power management at boot
       #"amdgpu.dpm=0"              # Disables Dynamic Power Management inside the amdgpu loop
 
       # Keep your other safe eGPU layers
       #"pcie_aspm=off"
       #"amdgpu.modeset=1"         # Forces proper kernel mode-setting drivers to handle allocations
-      "amdgpu.noretry=1"
+      "amdgpu.noretry=0"
+      #"xhci_hcd.power_save=0" # this might stop the d3cold log spamming
       #"thunderbolt.host_reset=1"
       #"amdgpu.modeset=1"         # Forces proper kernel mode-setting drivers to handle allocations
       # Fix for the 'ACK should not assert' driver loop
